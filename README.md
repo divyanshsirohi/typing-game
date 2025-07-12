@@ -3,7 +3,7 @@
 
 **DivType** is a modern typing speed test application built with **React** and **TypeScript**, designed specifically to help developers improve their typing speed and accuracy using real code snippets. Choose from popular backend languages like **Python**, **JavaScript**, **C++**, and **Go**, and compete on a global **leaderboard**!
 
-<img width="1895" height="1104" alt="image" src="https://github.com/user-attachments/assets/b68a4ae8-71c3-4713-9145-e90fc497b62f" />
+<img width="1919" height="1100" alt="image" src="https://github.com/user-attachments/assets/d82240e8-8fb4-4451-bf6e-aab0e3305270" />
 
 ## 🚀 Features
 
