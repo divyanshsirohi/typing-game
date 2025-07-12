@@ -1,70 +1,92 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# DivType ⚡️ — A Code-Focused Typing Speed Game
 
-Currently, two official plugins are available:
+**DivType** is a modern typing speed test application built with **React** and **TypeScript**, designed specifically to help developers improve their typing speed and accuracy using real code snippets. Choose from popular backend languages like **Python**, **JavaScript**, **C++**, and **Go**, and compete on a global **leaderboard**!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<img width="1895" height="1104" alt="image" src="https://github.com/user-attachments/assets/b68a4ae8-71c3-4713-9145-e90fc497b62f" />
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ⌨️ **Real Code Snippets**: Practice typing actual code instead of lorem ipsum.
+- 🔥 **Multi-language Support**: Pick your language – Python, JavaScript, C++, or Go.
+- 📊 **Performance Charts**: Visualize your speed, accuracy, and progress using Chart.js.
+- 🏆 **Leaderboard**: See how you rank among other developers.
+- 🕒 **Countdown Timer**: Choose game durations and race against the clock.
+- 🎯 **Live Feedback**: Instant highlighting of correct, incorrect, and current letters.
+- 💻 **Responsive UI**: Smooth performance across desktop and mobile.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **Frontend**: React (Vite) + TypeScript
+- **State Management**: useState, useRef, useEffect
+- **Charting**: [Chart.js](https://www.chartjs.org/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Styling**: CSS Modules / Plain CSS (no Tailwind)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📸 Demo
+
+Try it live: **[Coming Soon or Hosted Link]**
+
+## 🧠 How It Works
+
+1. Select a language and game duration.
+2. Type the code snippet that appears on screen.
+3. Your WPM (words per minute), accuracy, and mistakes are tracked in real-time.
+4. At the end, view your score and compare with others on the leaderboard.
+5. Visualize trends with a performance graph.
+
+## 🧪 Development Setup
+
+Clone the repo:
+
+```bash
+git clone https://github.com/divyanshsirohi/typing-game.git
+cd divtype
+````
+
+Install dependencies:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Run the development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
-# typing-game
+
+Build for production:
+
+```bash
+npm run build
+```
+
+## 🧩 Upcoming Features
+
+* User authentication (Google OAuth)
+* Save personal progress over time
+* Support for tabs and multi-line indentation
+* Dark mode toggle 🌙
+* Custom snippet import option
+
+## 🤝 Contributing
+
+Pull requests are welcome! If you have code snippets or new ideas, feel free to contribute.
+
+---
+
+### 🧠 Why I Built This
+
+As a backend developer, I wanted a fun and practical way to improve my typing speed using actual code I encounter in real life — not boring filler text. This project is part of my effort to improve coding reflexes while building something genuinely useful.
+
+---
+
+### 👋 Let's Connect
+
+* 💼 [LinkedIn](https://linkedin.com/in/divyanshsirohi)
+* 🧠 [Portfolio](https://divyansh-sirohi.vercel.app)
+* 📧 Email: [you@example.com](mailto:sirohidivyansh@gmail.com)
+
+```
+
