@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import './index.css';
 import { CloudLightning } from 'lucide-react';
 import { CODE_SNIPPETS } from './snippets.ts';
+import WPMChart from './WPMchart.tsx';
+import Leaderboard from './Leaderboard.tsx';
 import './App.css';
+
 
 /**
  * Converts a multiline code string into an HTML structure of styled letter spans.
@@ -33,7 +36,7 @@ function App() {
     const [isStarted, setIsStarted] = useState(false);
     const [timeLeft, setTimeLeft] = useState(30);
     const [wpm, setWpm] = useState<number | null>(null);
-
+    const [scores, setScores] = useState<{ wpm: number; date: string; language: string }[]>([]);
     const gameRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const startTimeRef = useRef<number | null>(null);
@@ -61,10 +64,16 @@ function App() {
      */
     const gameOver = () => {
         const correctLetters = [...document.querySelectorAll('.letter.correct')].length;
-        const wpmResult = Math.round(correctLetters / 5 / 0.5); // 5 chars/word, 0.5 min
+        const wpmResult = Math.round(correctLetters / 5 / 0.5);
         setWpm(wpmResult);
         setIsStarted(false);
+
+        setScores((prev) => [
+            ...prev,
+            { wpm: wpmResult, date: new Date().toLocaleTimeString(), language },
+        ]);
     };
+
 
     /**
      * Initializes a new game with a random snippet of the selected language.
@@ -184,6 +193,18 @@ function App() {
         if (language) newGame();
     }, [language]);
 
+    // Load on mount
+    useEffect(() => {
+        const stored = localStorage.getItem('scores');
+        if (stored) setScores(JSON.parse(stored));
+    }, []);
+
+    // Save on update
+    useEffect(() => {
+        localStorage.setItem('scores', JSON.stringify(scores));
+    }, [scores]);
+
+
     return (
         <>
             <h1>
@@ -219,6 +240,8 @@ function App() {
                 <div id="cursor" className="cursor"></div>
                 {language && !isStarted && <div className="focus-error">Click here to start</div>}
             </div>
+            <WPMChart scores={scores} />
+            <Leaderboard scores={scores} />
         </>
     );
 }
