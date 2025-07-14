@@ -213,9 +213,14 @@ function App() {
 
     return (
         <>
-            <h1>
-                <CloudLightning size={60} className="icon" />DivType
-            </h1>
+            <div className="title-banner">
+                <CloudLightning className="title-icon" size={60} />
+                <div className="title-text">
+                    <span className="brand-glow">DivType</span>
+                    <div className="sub-motto">⚡ Type code like thunder.</div>
+                </div>
+            </div>
+
 
             <div className="game">
                 <div className="info">{wpm !== null ? `WPM: ${wpm}` : timeLeft}</div>

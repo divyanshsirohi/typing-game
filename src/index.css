@@ -20,11 +20,55 @@ h1{
     color: var(--textPrimary);
 }
 
-.icon{
-    vertical-align: middle;
-    margin-right: 0.5rem;
+.title-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-direction: column;
+    text-align: center;
+    animation: fadeIn 1.2s ease-in-out;
 }
 
+.title-icon {
+    color: #00d1ff;
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.title-text .brand-glow {
+    font-size: 4rem;
+    font-family: 'Fira Code', monospace;
+    color: #ffffff;
+    background: linear-gradient(90deg, #00ffe7, #5c5fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+}
+
+.title-text .sub-motto {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    color: #bbbbbb;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px #00ffe7);
+    }
+    50% {
+        filter: drop-shadow(0 0 15px #00d1ff);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 main{
     width: 600px;
