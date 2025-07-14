@@ -139,6 +139,11 @@ function App() {
                 return;
             }
 
+            //Prevent default for all typing-related keys
+            if (isPrintable || isEnter || isTab || isBackspace) {
+                ev.preventDefault();
+            }
+
             // Start timer only for actual typing actions
             if (!timerRef.current && (isPrintable || isEnter || isTab)) {
                 startTimer();
@@ -147,6 +152,7 @@ function App() {
             // Tab prevention is handled in the specific tab case below
 
             if (isEnter && currentLetter.classList.contains('enter')) {
+                ev.preventDefault();
                 currentLetter.classList.add('correct');
                 currentLetter.classList.remove('current');
                 const next = currentLetter.parentElement?.nextElementSibling?.querySelector('.letter');
