@@ -248,9 +248,14 @@ function App() {
                     ref={gameRef}
                     style={{ filter: isStarted ? 'none' : 'blur(4px)', opacity: language ? 1 : 0 }}
                 ></div>
+
                 <div id="cursor" className="cursor"></div>
-                {language && !isStarted && <div className="focus-error">Click here to start</div>}
+
+                {language && !isStarted && (
+                    <div className="focus-error-centered">Click here to start</div>
+                )}
             </div>
+
             <WPMChart scores={scores} />
             <Leaderboard scores={scores} />
         </>

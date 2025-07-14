@@ -221,26 +221,28 @@ button:hover {
 .words-wrapper {
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
-.focus-error {
+.focus-error-centered {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: -200px;
-    border-radius: 10px;
-    color: var(--primaryColor);
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.5rem;
     pointer-events: none;
+    z-index: 10;
+    text-align: center;
+    font-weight: 500;
 }
 
 .words-wrapper:focus .words{
     filter: blur(0);
+    position: relative;
 }
 
 #cursor {
