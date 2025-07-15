@@ -221,13 +221,12 @@ button:hover {
 .words-wrapper {
     display: flex;
     justify-content: center;
-    position: relative;
 }
 
 .focus-error-centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: relative;
+    top: 75%;
+    left: 25%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.6);
     padding: 1rem 2rem;
@@ -242,7 +241,6 @@ button:hover {
 
 .words-wrapper:focus .words{
     filter: blur(0);
-    position: relative;
 }
 
 #cursor {
