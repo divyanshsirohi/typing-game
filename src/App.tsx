@@ -5,6 +5,8 @@ import { CODE_SNIPPETS } from './snippets.ts';
 import WPMChart from './WPMchart.tsx';
 import Leaderboard from './Leaderboard.tsx';
 import './App.css';
+import { Analytics } from '@vercel/analytics/react'
+
 
 
 /**
@@ -105,12 +107,20 @@ function App() {
     const updateCursor = () => {
         const cursor = document.getElementById('cursor');
         const refEl = document.querySelector('.letter.current') as HTMLElement;
-        if (cursor && refEl) {
-            const rect = refEl.getBoundingClientRect();
-            cursor.style.top = `${rect.top + window.scrollY}px`;
-            cursor.style.left = `${rect.left + window.scrollX}px`;
+        const wrapper = document.querySelector('.words-wrapper') as HTMLElement;
+
+        if (cursor && refEl && wrapper) {
+            const letterRect = refEl.getBoundingClientRect();
+            const wrapperRect = wrapper.getBoundingClientRect();
+
+            const top = letterRect.top - wrapperRect.top;
+            const left = letterRect.left - wrapperRect.left;
+
+            cursor.style.top = `${top}px`;
+            cursor.style.left = `${left}px`;
         }
     };
+
 
     /**
      * Typing event handler for comparing input with expected characters.
@@ -258,6 +268,7 @@ function App() {
 
             <WPMChart scores={scores} />
             <Leaderboard scores={scores} />
+            <Analytics />
         </>
     );
 }
