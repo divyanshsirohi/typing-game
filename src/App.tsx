@@ -36,7 +36,7 @@ function formatCode(code: string): string {
 function App() {
     const [language, setLanguage] = useState<'javascript' | 'python' | 'cpp' | 'go' | ''>('');
     const [isStarted, setIsStarted] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(60);
     const [wpm, setWpm] = useState<number | null>(null);
     const [scores, setScores] = useState<{ wpm: number; date: string; language: string }[]>([]);
     const gameRef = useRef<HTMLDivElement>(null);
@@ -51,7 +51,7 @@ function App() {
         startTimeRef.current = Date.now();
         timerRef.current = setInterval(() => {
             const elapsed = Math.floor((Date.now() - (startTimeRef.current || 0)) / 1000);
-            const remaining = 30 - elapsed;
+            const remaining = 60 - elapsed;
             setTimeLeft(remaining);
             if (remaining <= 0) {
                 clearInterval(timerRef.current!);
@@ -66,7 +66,7 @@ function App() {
      */
     const gameOver = () => {
         const correctLetters = [...document.querySelectorAll('.letter.correct')].length;
-        const wpmResult = Math.round(correctLetters / 5 / 0.5);
+        const wpmResult = Math.round(correctLetters / 5);
         setWpm(wpmResult);
         setIsStarted(false);
 
@@ -94,7 +94,7 @@ function App() {
 
         updateCursor();
 
-        setTimeLeft(30);
+        setTimeLeft(60);
         setWpm(null);
         setIsStarted(false);
         clearInterval(timerRef.current!);
@@ -127,6 +127,7 @@ function App() {
      * Handles tabs, enters, backspace, and printable characters.
      */
     useEffect(() => {
+        // Replace your existing handleKeyDown function with this fixed version:
         const handleKeyDown = (ev: KeyboardEvent) => {
             const key = ev.key;
             const currentLetter = document.querySelector('.letter.current') as HTMLElement;
@@ -136,7 +137,7 @@ function App() {
 
             const ignoredKeys = new Set([
                 'Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Escape',
-                'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter', 'Backspace'
+                'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'
             ]);
 
             const isPrintable = key.length === 1 && !ignoredKeys.has(key);
@@ -145,7 +146,7 @@ function App() {
             const isBackspace = key === 'Backspace';
 
             // Return early if it's an ignored key (like Shift)
-            if (ignoredKeys.has(key) && !isEnter && !isTab && !isBackspace) {
+            if (ignoredKeys.has(key)) {
                 return;
             }
 
@@ -159,31 +160,8 @@ function App() {
                 startTimer();
             }
 
-            // Tab prevention is handled in the specific tab case below
-
-            if (isEnter && currentLetter.classList.contains('enter')) {
-                ev.preventDefault();
-                currentLetter.classList.add('correct');
-                currentLetter.classList.remove('current');
-                const next = currentLetter.parentElement?.nextElementSibling?.querySelector('.letter');
-                if (next) next.classList.add('current');
-                updateCursor();
-                return;
-            } else if (isTab && currentLetter.classList.contains('tab')) {
-                ev.preventDefault();
-                currentLetter.classList.add('correct');
-                currentLetter.classList.remove('current');
-                const next = currentLetter.nextElementSibling as HTMLElement;
-                if (next) next.classList.add('current');
-                updateCursor();
-                return;
-            } else if (isPrintable) {
-                if (key === expected) {
-                    currentLetter.classList.add('correct');
-                } else {
-                    currentLetter.classList.add('incorrect');
-                }
-            } else if (isBackspace) {
+            // Handle backspace
+            if (isBackspace) {
                 const prev = currentLetter?.previousElementSibling as HTMLElement;
                 if (prev) {
                     currentLetter.classList.remove('current');
@@ -194,11 +172,71 @@ function App() {
                 return;
             }
 
-            currentLetter.classList.remove('current');
-            const next = currentLetter.nextElementSibling as HTMLElement;
-            if (next) next.classList.add('current');
+            // Handle Enter key - both correct and incorrect cases
+            if (isEnter) {
+                if (currentLetter.classList.contains('enter')) {
+                    // Correct Enter press
+                    currentLetter.classList.add('correct');
+                } else {
+                    // Incorrect Enter press (pressed Enter but not on enter element)
+                    currentLetter.classList.add('incorrect');
+                }
+                currentLetter.classList.remove('current');
 
-            updateCursor();
+                // Move to next element
+                let next: HTMLElement | null = null;
+                if (currentLetter.classList.contains('enter')) {
+                    // Move to first letter of next line
+                    next = currentLetter.parentElement?.nextElementSibling?.querySelector('.letter') as HTMLElement;
+                } else {
+                    // Move to next letter in same line
+                    next = currentLetter.nextElementSibling as HTMLElement;
+                }
+
+                if (next) next.classList.add('current');
+                updateCursor();
+                return;
+            }
+
+            // Handle Tab key - both correct and incorrect cases
+            if (isTab) {
+                if (currentLetter.classList.contains('tab')) {
+                    // Correct Tab press
+                    currentLetter.classList.add('correct');
+                } else {
+                    // Incorrect Tab press (pressed Tab but not on tab element)
+                    currentLetter.classList.add('incorrect');
+                }
+                currentLetter.classList.remove('current');
+                const next = currentLetter.nextElementSibling as HTMLElement;
+                if (next) next.classList.add('current');
+                updateCursor();
+                return;
+            }
+
+            // Handle printable characters
+            if (isPrintable) {
+                if (key === expected) {
+                    currentLetter.classList.add('correct');
+                } else {
+                    currentLetter.classList.add('incorrect');
+                }
+
+                currentLetter.classList.remove('current');
+                let next: HTMLElement | null = null;
+
+                // Special handling for when you type a character on an "enter" element
+                if (currentLetter.classList.contains('enter')) {
+                    // Move to first letter of next line even though it's wrong
+                    next = currentLetter.parentElement?.nextElementSibling?.querySelector('.letter') as HTMLElement;
+                } else {
+                    // Normal case - move to next letter
+                    next = currentLetter.nextElementSibling as HTMLElement;
+                }
+
+                if (next) next.classList.add('current');
+                updateCursor();
+            }
         };
 
         window.addEventListener('keydown', handleKeyDown);
